@@ -67,21 +67,34 @@
       opacity: 0.7;
       animation: rise 1.2s 0.5s ease-out both;
     }
-    nav.appendix {
+    details.appendix {
       width: 100%;
       max-width: 520px;
-      margin-top: 44px;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       animation: rise 1.2s 0.7s ease-out both;
     }
-    nav.appendix h2 {
-      margin: 0 0 14px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
+    details.appendix > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 10px 28px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
       color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      user-select: none;
+      transition: background .2s, color .2s;
     }
-    nav.appendix ol {
+    details.appendix > summary::-webkit-details-marker { display: none; }
+    details.appendix > summary:hover, details.appendix[open] > summary { background: var(--accent); color: #fff; }
+    details.appendix > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    details.appendix nav { width: 100%; margin-top: 18px; animation: rise .35s ease-out both; }
+    details.appendix ol {
       margin: 0;
       padding: 0;
       list-style: none;
@@ -90,7 +103,7 @@
       gap: 10px;
       counter-reset: page;
     }
-    nav.appendix a {
+    details.appendix a {
       display: grid;
       grid-template-columns: 28px minmax(0, 1fr) auto;
       gap: 12px;
@@ -106,7 +119,7 @@
       transition: background .2s, border-color .2s, transform .2s;
       counter-increment: page;
     }
-    nav.appendix a::before {
+    details.appendix a::before {
       content: counter(page);
       font-family: "Fraunces", Georgia, serif;
       font-style: italic;
@@ -114,7 +127,7 @@
       color: var(--accent);
       text-align: center;
     }
-    nav.appendix a:hover, nav.appendix a:focus-visible {
+    details.appendix a:hover, details.appendix a:focus-visible {
       background: rgba(255, 255, 255, 0.85);
       border-color: var(--accent);
       transform: translateY(-1px);
@@ -145,10 +158,10 @@
     }
     @media (max-width: 420px) {
       .lock span { display: none; }
-      nav.appendix a { grid-template-columns: 22px minmax(0, 1fr) auto; padding: 12px; }
+      details.appendix a { grid-template-columns: 22px minmax(0, 1fr) auto; padding: 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      body, h1, .line, p.site, nav.appendix { animation: none; }
+      body, h1, .line, p.site, details.appendix, details.appendix nav { animation: none; }
     }
   </style>
 </head>
@@ -157,8 +170,9 @@
   <div class="line"></div>
   <p class="site">quynhanh.me</p>
 
-  <nav class="appendix" aria-label="Pages on quynhanh.me">
-    <h2>Appendix</h2>
+  <details class="appendix">
+    <summary>Appendix</summary>
+    <nav aria-label="Pages on quynhanh.me">
     <ol>
       <li><a href="/market/"><span><span class="t">Market State Scorecard</span><span class="d">The morning read before the open</span></span>
         <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Password</span></span></a></li>
@@ -172,6 +186,7 @@
         <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Password</span></span></a></li>
     </ol>
     <p class="note">Each page asks for the password; tick “remember me” to skip it next time.</p>
-  </nav>
+    </nav>
+  </details>
 </body>
 </html>
