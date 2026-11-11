@@ -13,17 +13,18 @@
       --bg2: #d9c6f5;
       --bg3: #c4b5ec;
       --ink: #2b1d45;
+      --muted: #5b4d78;
       --accent: #6a3fb5;
     }
     * { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; }
+    html, body { margin: 0; min-height: 100%; }
     body {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 48px 16px;
       color: var(--ink);
       font-family: "Inter", system-ui, sans-serif;
       background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
@@ -57,7 +58,7 @@
       opacity: 0.6;
       animation: rise 1.2s 0.3s ease-out both;
     }
-    p {
+    p.site {
       margin: 0;
       font-size: 0.85rem;
       font-weight: 500;
@@ -66,31 +67,111 @@
       opacity: 0.7;
       animation: rise 1.2s 0.5s ease-out both;
     }
-    .enter {
-      margin-top: 40px;
-      padding: 10px 28px;
-      border: 1px solid var(--accent);
-      border-radius: 999px;
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background .2s, color .2s;
+    nav.appendix {
+      width: 100%;
+      max-width: 520px;
+      margin-top: 44px;
       animation: rise 1.2s 0.7s ease-out both;
     }
-    .enter:hover { background: var(--accent); color: #fff; }
+    nav.appendix h2 {
+      margin: 0 0 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    nav.appendix ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      counter-reset: page;
+    }
+    nav.appendix a {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 64px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(106, 63, 181, 0.18);
+      color: var(--ink);
+      text-decoration: none;
+      text-align: left;
+      transition: background .2s, border-color .2s, transform .2s;
+      counter-increment: page;
+    }
+    nav.appendix a::before {
+      content: counter(page);
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--accent);
+      text-align: center;
+    }
+    nav.appendix a:hover, nav.appendix a:focus-visible {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .t { display: block; font-weight: 500; font-size: 1rem; }
+    .d { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+    .lock {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .lock svg { width: 14px; height: 14px; }
+    p.note {
+      margin: 16px 0 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
     @keyframes rise {
       from { opacity: 0; transform: translateY(16px); }
       to   { transform: translateY(0); }
+    }
+    @media (max-width: 420px) {
+      .lock span { display: none; }
+      nav.appendix a { grid-template-columns: 22px minmax(0, 1fr) auto; padding: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body, h1, .line, p.site, nav.appendix { animation: none; }
     }
   </style>
 </head>
 <body>
   <h1>Hello <em>Ann</em></h1>
   <div class="line"></div>
-  <p>quynhanh.me</p>
-  <a class="enter" href="/market/">Enter</a>
+  <p class="site">quynhanh.me</p>
+
+  <nav class="appendix" aria-label="Pages on quynhanh.me">
+    <h2>Appendix</h2>
+    <ol>
+      <li><a href="/market/"><span><span class="t">Market State Scorecard</span><span class="d">The morning read before the open</span></span>
+        <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Password</span></span></a></li>
+      <li><a href="/F5dashboard/"><span><span class="t">F5 Dashboard</span><span class="d">The day's signals, live during the session</span></span>
+        <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Password</span></span></a></li>
+      <li><a href="/f5-check/"><span><span class="t">F5 strategy check</span><span class="d">Every strategy checked after each night's run</span></span>
+        <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Password</span></span></a></li>
+      <li><a href="/hacio/"><span><span class="t">VN30 futures signals</span><span class="d">Signals for the VN30 futures</span></span>
+        <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Password</span></span></a></li>
+      <li><a href="/private/"><span><span class="t">Private</span><span class="d">Private page</span></span>
+        <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Password</span></span></a></li>
+    </ol>
+    <p class="note">Each page asks for the password; tick “remember me” to skip it next time.</p>
+  </nav>
 </body>
 </html>
